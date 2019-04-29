@@ -31,7 +31,7 @@ public class AccountManagement extends Login implements View {
 
 		switch (selection) {
 		case 1:
-			//userServ.openAccount(user);
+			userServ.openAccount(user);
 			return this;
 		case 2:
 			userServ.checkBalance(user);

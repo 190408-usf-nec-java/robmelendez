@@ -122,36 +122,32 @@ public class UserService {
 		return u;
 	}
 	
-//	public User openAccount(User u) {
+	public User openAccount(User u) {
+
+
+//		insert into accounts (account_id , balance)
+//		values ('1', '0') returning account_id;
 //
-//
-////		insert into accounts (account_id , balance)
-////		values ('1', '0') returning account_id;
-////
-////		insert into ownership (id, account_id)
-////		values (1, 1)
-//
-//		
-//
-//		try(Connection conn = ConnectionUtil.getConnection()) {
-//			String sql = "insert into accounts (account_id , balance)"
-//					+ "values ('" + u.getId() + "', '0') returning account_id"
-//							+ "AND insert into ownership (id, account_id)"
-//							+ "values (" + u.getId() + "), 1)";
-//					
-//					
-//			PreparedStatement ps = conn.prepareStatement(sql);
-//			double rs = ps.executeUpdate();
-//
-//
-//
-//		}catch(SQLException e) {
-//			e.printStackTrace();
-//
-//		}
-//
-//		return u;
-//	}
+//		insert into ownership (id, account_id)
+//		values (1, 1)
+
+		try(Connection conn = ConnectionUtil.getConnection()) {
+			int id = u.getId();
+			String sql = "insert into accounts (account_id , balance) values (" + id + ", '0')";					
+			PreparedStatement ps = conn.prepareStatement(sql);
+			int rs = ps.executeUpdate();
+
+			String sql2 = "insert into ownership (id, account_id)     values (" + id + ", " + id + ")" ;
+			PreparedStatement ps2 = conn.prepareStatement(sql2);
+			int rs2 = ps2.executeUpdate();
+
+		}catch(SQLException e) {
+			e.printStackTrace();
+
+		}
+		System.out.println("Account has been created" + "\n");
+		return u;
+	}
 	
 	public User makePayment(User u) {
 
